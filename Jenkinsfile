@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'amaysim/serverless'
+            image 'amaysim/serverless:1.27.1'
         }
     }
     stages {
@@ -12,7 +12,10 @@ pipeline {
         }
         stage('Deploy - Dev') {
             steps {
-                sh 'sls deploy --stage dev'
+                withAWS(credentials:'diligentsoft') {
+                    sh 'npm install serverless-offline --save-dev'
+                    sh 'sls deploy --stage dev'
+                }
             }
         }
         stage('Sanity check') {
@@ -22,7 +25,9 @@ pipeline {
         }
         stage('Deploy - Prod') {
             steps {
-                sh 'sls deploy --stage prod'
+                withAWS(credentials:'diligentsoft') {
+                    sh 'sls deploy --stage prod'
+                }
             }
         }
     }
