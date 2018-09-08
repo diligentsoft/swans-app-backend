@@ -13,10 +13,14 @@ provider:
   region: eu-west-2
   runtime: nodejs6.10
 
+custom:
+  env: ${opt:stage, 'dev'}
+
 # The `functions` block defines what code to deploy
 functions:
   create-flytipping-report:
     handler: handler.createFlytippingReport
+    name: ${self:custom.env}-createFlytippingReport
     events:
       - http:
           path: flytipping
@@ -26,6 +30,7 @@ functions:
 
   handle-file-upload:
     handler: file-upload-lambda.handleFileUpload
+    name: ${self:custom.env}-handleFileUpload
     events:
       - http:
           path: files
@@ -39,7 +44,7 @@ resources:
       Type: AWS::IAM::Role
       Properties:
 #        Path: /my/default/path/
-        RoleName: FlytippingReportRole # required if you want to use 'serverless deploy --function' later on
+        RoleName: ${self:custom.env}FlytippingReportRole # required if you want to use 'serverless deploy --function' later on
         AssumeRolePolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -49,7 +54,7 @@ resources:
                   - lambda.amazonaws.com
               Action: sts:AssumeRole
         Policies:
-          - PolicyName: FlytippingReportPolicy
+          - PolicyName: ${self:custom.env}FlytippingReportPolicy
             PolicyDocument:
               Version: '2012-10-17'
               Statement:
@@ -67,7 +72,7 @@ resources:
       Type: AWS::IAM::Role
       Properties:
 #        Path: /my/default/path/
-        RoleName: FileUploadRole # required if you want to use 'serverless deploy --function' later on
+        RoleName: ${self:custom.env}FileUploadRole # required if you want to use 'serverless deploy --function' later on
         AssumeRolePolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -77,7 +82,7 @@ resources:
                   - lambda.amazonaws.com
               Action: sts:AssumeRole
         Policies:
-          - PolicyName: FileUploadPolicy
+          - PolicyName: ${self:custom.env}FileUploadPolicy
             PolicyDocument:
               Version: '2012-10-17'
               Statement:
