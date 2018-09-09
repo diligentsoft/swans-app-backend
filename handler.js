@@ -28,7 +28,7 @@ module.exports.createFlytippingReport = (event, context, callback) => {
                     "See https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=600x400&maptype=roadmap&markers=color:red%7C" +
                     report.latitude + "," + report.longitude +
                     "&key=AIzaSyB993oF7I38X3PgnAFnZbHxgyQbQY_6_4Q \n\n" +
-                    "Image filename: " + report.imageFilename + "\n\n" +
+                    "Image filename: https://s3.eu-west-2.amazonaws.com/swans.app-file-uploads/" + report.imageFilename + "\n\n" +
                     "Best,\n\n\nSwans.app",
                     Charset: 'UTF-8'
                 },
@@ -40,7 +40,7 @@ module.exports.createFlytippingReport = (event, context, callback) => {
                     "<p><img src=\"https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C" +
                     report.latitude + "," + report.longitude +
                     "&key=AIzaSyB993oF7I38X3PgnAFnZbHxgyQbQY_6_4Q\"></p>" +
-                    "<p>Image filename: " + report.imageFilename + "</p>" +
+                    "<p>Image filename: <a href=\"https://s3.eu-west-2.amazonaws.com/swans.app-file-uploads/" + report.imageFilename + "\">" + report.imageFilename + "</a></p>" +
                     "<p>Best</p>" +
                     "<p>Swans.app</p>",
                     Charset: 'UTF-8'
