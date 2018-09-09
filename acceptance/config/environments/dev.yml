@@ -1,0 +1,4 @@
+environment: dev
+swans_app_backend:
+  base_url: https://zia6r5shye.execute-api.eu-west-2.amazonaws.com/dev
+  flytipping_resource_path: /flytipping
