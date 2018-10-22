@@ -11,7 +11,7 @@ service: swans-app-api
 provider:
   name: aws
   region: eu-west-2
-  runtime: nodejs6.10
+  runtime: nodejs8.10
 
 custom:
   env: ${opt:stage, 'dev'}
@@ -19,7 +19,7 @@ custom:
 # The `functions` block defines what code to deploy
 functions:
   create-flytipping-report:
-    handler: handler.createFlytippingReport
+    handler: dist/flytipping-lambda.createFlytippingReport
     name: ${self:custom.env}-createFlytippingReport
     events:
       - http:
@@ -29,7 +29,7 @@ functions:
     role: createFlytippingReportRole
 
   handle-file-upload:
-    handler: file-upload-lambda.handleFileUpload
+    handler: dist/file-upload-lambda.handleFileUpload
     name: ${self:custom.env}-handleFileUpload
     events:
       - http:
