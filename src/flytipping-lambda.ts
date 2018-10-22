@@ -8,7 +8,7 @@ module.exports.createFlytippingReport = (event, context, callback) => {
 
     let report = JSON.parse(event.body)
 
-    let charset = 'UTF-8'
+    let emailCharset = 'UTF-8'
 
     let params = {
         Destination: {
@@ -33,7 +33,7 @@ module.exports.createFlytippingReport = (event, context, callback) => {
                     Image filename: https://s3.eu-west-2.amazonaws.com/swans.app-file-uploads/${report.imageFilename}\n\n
                     Best,\n\n\nSwans.app`,
 
-                    Charset: charset
+                    Charset: emailCharset
                 },
                 Html: {
                     Data: `<p>Dear Team</p><p>New flytipping report received at ${report.dateTime}
@@ -52,7 +52,7 @@ module.exports.createFlytippingReport = (event, context, callback) => {
                     <p>Best</p>
                     <p>Swans.app</p>`,
 
-                    Charset: charset
+                    Charset: emailCharset
                 }
             }
         },

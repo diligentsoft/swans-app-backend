@@ -7,3 +7,5 @@ jspm_packages
 
 # Intelli
 .idea
+
+dist
